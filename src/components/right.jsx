@@ -28,7 +28,7 @@ function Right() {
                 <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">⚙️ Settings</a>
             </div>
             <div className="text-center mt-4 text-gray-500 text-sm">
-                © 2026 Wobo Gaming Platform. All rights reserved.
+                © 2026 LoLo Gaming Platform. All rights reserved.
             </div>
         </div></>
     )

@@ -34,33 +34,14 @@ const times = [
 ]
 
 function Left() {
-    const [posts, setPosts] = useState([
-        {
-            id: 1,
-            username: '@GamerName',
-            time: '2h ago',
-            text: 'Just beat the boss level! 🎉',
-            media: null,
-            likes: 0,
-            comments: 0
-        },
-        {
-            id: 2,
-            username: '@Streamer',
-            time: '5h ago',
-            text: 'Live stream starting in 10 mins! 🎮',
-            media: null,
-            likes: 0,
-            comments: 0
-        }
-    ])
+    const [posts, setPosts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [likedPosts, setLikedPosts] = useState(new Set())
 
     // Generate random post from textbank
     function fetchPosts() {
         setIsLoading(true)
-        
+
         // Wait random time between 1000-2000ms
         const delay = Math.floor(Math.random() * 1000) + 1000
         return new Promise(resolve => {
@@ -75,13 +56,17 @@ function Left() {
                     likes: Math.floor(Math.random() * 100),
                     comments: Math.floor(Math.random() * 100)
                 }))
-                
+
                 setPosts(prevPosts => [...prevPosts, ...newPosts])
                 setIsLoading(false)
                 resolve()
             }, delay)
         })
     }
+
+    useEffect(() => {
+        fetchPosts();
+    }, [])
 
     // Handle toggle like functionality
     function handleToggleLike(postId) {
@@ -147,8 +132,10 @@ function Left() {
                         <div className="bg-gray-700 h-48 rounded-lg flex items-center justify-center text-gray-500 mb-3">📷 Game Media</div>
                         <div className="flex justify-between items-center">
                             <div className="flex gap-4">
-                                <button onClick={() => handleToggleLike(post.id)} className={`flex items-center gap-1 transition-colors ${likedPosts.has(post.id) ? 'text-blue-400 scale-110' : 'text-gray-400 hover:text-blue-400'}`}>
-                                    👍 {post.likes}
+                                <button onClick={() => handleToggleLike(post.id)} className={`flex items-center gap-1 transition-colors ${likedPosts.has(post.id) ? 'text-blue-400 animate-bump' : 'text-gray-400 hover:text-blue-400 animate-bump-reverse'}`}>
+                                    <span>
+                                        👍 {post.likes}
+                                    </span>
                                 </button>
                                 <button className="flex items-center gap-1 text-gray-400 hover:text-blue-400 transition-colors">💬 {post.comments}</button>
                                 <button className="flex items-center gap-1 text-gray-400 hover:text-blue-400 transition-colors">🔗 Share</button>
@@ -158,7 +145,21 @@ function Left() {
                 ))}
                 <div className="flex justify-center pt-12 pb-72 ">
                     {isLoading ? (
-                        <div className="text-gray-400 animate-pulse">Loading more posts...</div>
+                        <div className="text-gray-400 animate-pulse mx-auto w-full">
+                            Loading more posts...
+                            <div className="flex bg-gray-800 border border-gray-700 rounded-lg p-4 animate-pulse space-x-4">
+                                <div className="size-10 rounded-full bg-gray-700 "></div>
+                                <div className=" h-24 rounded-lg b-3"></div>
+                                <div class="flex-1 py-1 mx-auto">
+                                    <div class="h-2 rounded bg-gray-700 w-1/2"></div>
+                                    <div class="h-2 rounded bg-gray-700 mt-6"></div>
+                                    <div className="grid grid-cols-4 gap-4 mt-6">
+                                        <div className="h-2 rounded bg-gray-700 col-span-1"></div>
+                                        <div className="h-2 rounded bg-gray-700 col-span-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     ) : (
                         <div className="text-gray-400">Scroll to load more posts</div>
                     )}

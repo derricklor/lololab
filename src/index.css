@@ -1,3 +1,23 @@
 
 @import "tailwindcss";
 
+@theme {
+  --animate-bump: bump 1s ease-in-out 1;
+  @keyframes bump {
+        0% { transform: none; }
+        20% { transform: translateY(-50%); }
+        35% { transform: none; }
+    }
+
+  --animate-bump-reverse: bump-reverse 0.3s ease-out 1;      
+  @keyframes bump-reverse {                                                                                                                                                                            
+        0% { transform: translateY(0); }                                                                                                                                                                   
+        30% { transform: translateY(-4px); }                                                                                                                                                               
+        50% { transform: translateY(2px); }                                                                                                                                                                
+        70% { transform: translateY(-1px); }                                                                                                                                                               
+        100% { transform: translateY(0); }                                                                                                                                                                 
+   }                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+     
+}
+
